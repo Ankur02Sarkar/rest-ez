@@ -2,7 +2,7 @@
   "name": "rest-ez",
   "version": "1.0.0",
   "description": "Create REST APIs easily using Command Line Interface",
-  "main": "index.js",
+  "main": "index.ts",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -20,5 +20,11 @@
   "bugs": {
     "url": "https://github.com/Ankur02Sarkar/rest-ez/issues"
   },
-  "homepage": "https://github.com/Ankur02Sarkar/rest-ez#readme"
+  "homepage": "https://github.com/Ankur02Sarkar/rest-ez#readme",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
 }
