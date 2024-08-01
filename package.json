@@ -1,0 +1,24 @@
+{
+  "name": "rest-ez",
+  "version": "1.0.0",
+  "description": "Create REST APIs easily using Command Line Interface",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ankur02Sarkar/rest-ez.git"
+  },
+  "keywords": [
+    "REST",
+    "APIs"
+  ],
+  "author": "Ankur02Sarkar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ankur02Sarkar/rest-ez/issues"
+  },
+  "homepage": "https://github.com/Ankur02Sarkar/rest-ez#readme"
+}
