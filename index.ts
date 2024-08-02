@@ -9,6 +9,7 @@ import { createSpinner } from "nanospinner";
 
 let frameworkType: string; // Annotate variable type
 let database: string; // Annotate variable type
+let folderName: string = "rest-api"; // Annotate variable type
 
 const sleep = (ms: number = 1237): Promise<void> =>
   new Promise((resolve) => setTimeout(resolve, ms));
@@ -20,12 +21,18 @@ async function welcome(): Promise<void> {
   rainbowTitle.stop();
 }
 
+async function setFolderName() {
+  const folder = await input({ message: "Enter your Folder Name" });
+  if (folder && folder !== "") {
+    folderName = folder;
+  }
+}
+
 function cloneProject(): void {
   console.clear();
   console.log("frameworkType : ", frameworkType);
   console.log("database : ", database);
-
-  let folderName = "rest-api"; // should be the name of the cloned folder
+  console.log("folderName : ", folderName);
 
   figlet("Congratulations", async (err, data) => {
     if (err) {
@@ -84,6 +91,7 @@ async function chooseDB(): Promise<void> {
 (async () => {
   console.clear();
   await welcome();
+  await setFolderName();
   await chooseFramework();
   await chooseDB();
   cloneProject();
