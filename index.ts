@@ -6,6 +6,9 @@ import gradient from "gradient-string";
 import chalkAnimation from "chalk-animation";
 import figlet from "figlet";
 import { createSpinner } from "nanospinner";
+import simpleGit from "simple-git"; // Import simple-git
+import fs from "fs"; // Import the fs module
+import path from "path"; // Import the path module
 
 let frameworkType: string; // Annotate variable type
 let database: string; // Annotate variable type
@@ -28,46 +31,74 @@ async function setFolderName() {
   }
 }
 
-function cloneProject(): void {
+async function cloneProject(): Promise<void> {
   console.clear();
-  console.log("frameworkType : ", frameworkType);
-  console.log("database : ", database);
-  console.log("folderName : ", folderName);
 
-  // If framwork is "NodeJS" and database is "Offline File Storage" then clone "https://github.com/Ankur02Sarkar/NodeJS-REST-API-Local.git" into folderName
-  // If framwork is "FastAPI" and database is "Offline File Storage" then clone "https://github.com/Ankur02Sarkar/Python-REST-API-Local.git" into folderName
+  const spinner = createSpinner("Cloning project...").start();
 
-  figlet("Congratulations", async (err, data) => {
-    if (err) {
-      console.error("Something went wrong with figlet.");
-      console.error(err);
-      process.exit(1);
+  const git = simpleGit(); // Create an instance of simple-git
+  let repoUrl: string;
+
+  // Determine the repository URL based on frameworkType and database
+  if (frameworkType === "NodeJS" && database === "Offline File Storage") {
+    repoUrl = "https://github.com/Ankur02Sarkar/NodeJS-REST-API-Local.git";
+  } else if (
+    frameworkType === "FastAPI" &&
+    database === "Offline File Storage"
+  ) {
+    repoUrl = "https://github.com/Ankur02Sarkar/Python-REST-API-Local.git";
+  } else {
+    spinner.error({ text: "Unsupported configuration" });
+    process.exit(1);
+  }
+
+  try {
+    await git.clone(repoUrl, folderName); // Clone the repository
+
+    // Remove the .git folder after cloning
+    const gitFolderPath = path.join(folderName, ".git");
+    if (fs.existsSync(gitFolderPath)) {
+      fs.rmSync(gitFolderPath, { recursive: true, force: true });
     }
 
-    console.log(gradient.pastel.multiline(data) + "\n");
+    spinner.success({ text: "Project cloned successfully!" });
 
-    const rainbowTitle = chalkAnimation.rainbow(
-      "Your REST API has been generated succesfully \n"
-    );
+    figlet("Congratulations", async (err, data) => {
+      if (err) {
+        console.error("Something went wrong with figlet.");
+        console.error(err);
+        process.exit(1);
+      }
 
-    await sleep(700);
-    rainbowTitle.stop();
+      console.log(gradient.pastel.multiline(data) + "\n");
 
-    console.log(
-      chalk.green(
-        `Follow Up Steps :- \n
-        - cd ${folderName}
-        - ${
-          frameworkType === "NodeJS"
-            ? "npm install"
-            : "pip install -r requirements.txt"
-        }
-        - ${frameworkType === "NodeJS" ? "node index.js" : "uvicorn main:app"}
-        `
-      )
-    );
-    process.exit(0);
-  });
+      const rainbowTitle = chalkAnimation.rainbow(
+        "Your REST API has been generated successfully \n"
+      );
+
+      await sleep(700);
+      rainbowTitle.stop();
+
+      console.log(
+        chalk.green(
+          `Follow Up Steps :- \n
+          - cd ${folderName}
+          - ${
+            frameworkType === "NodeJS"
+              ? "npm install"
+              : "pip install -r requirements.txt"
+          }
+          - ${frameworkType === "NodeJS" ? "node index.js" : "uvicorn main:app"}
+          `
+        )
+      );
+      process.exit(0);
+    });
+  } catch (error) {
+    spinner.error({ text: "Failed to clone the repository." });
+    console.error(error);
+    process.exit(1);
+  }
 }
 
 async function chooseFramework(): Promise<void> {
@@ -97,5 +128,5 @@ async function chooseDB(): Promise<void> {
   await setFolderName();
   await chooseFramework();
   await chooseDB();
-  cloneProject();
+  await cloneProject(); // Ensure cloneProject is awaited
 })();
