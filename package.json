@@ -1,5 +1,5 @@
 {
-  "name": "rest-ez",
+  "name": "rest-ezly",
   "version": "1.0.0",
   "description": "Create REST APIs easily using Command Line Interface",
   "main": "index.ts",
