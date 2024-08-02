@@ -34,6 +34,9 @@ function cloneProject(): void {
   console.log("database : ", database);
   console.log("folderName : ", folderName);
 
+  // If framwork is "NodeJS" and database is "Offline File Storage" then clone "https://github.com/Ankur02Sarkar/NodeJS-REST-API-Local.git" into folderName
+  // If framwork is "FastAPI" and database is "Offline File Storage" then clone "https://github.com/Ankur02Sarkar/Python-REST-API-Local.git" into folderName
+
   figlet("Congratulations", async (err, data) => {
     if (err) {
       console.error("Something went wrong with figlet.");
