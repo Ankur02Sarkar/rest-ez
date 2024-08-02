@@ -81,7 +81,7 @@ async function chooseDB(): Promise<void> {
   database = await select({
     message: "Choose Your Storage\n",
     choices: [
-      { name: "Local Storage", value: "Local Storage" },
+      { name: "Offline File Storage", value: "Offline File Storage" },
       { name: "MongoDB", value: "MongoDB" },
     ],
   });
