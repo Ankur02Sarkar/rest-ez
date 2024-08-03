@@ -2,7 +2,7 @@
   "name": "rest-ezly",
   "version": "1.0.0",
   "description": "Create REST APIs easily using Command Line Interface",
-  "main": "index.ts",
+  "main": "index.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -27,7 +27,7 @@
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
-  "bin": "./index.ts",
+  "bin": "./index.js",
   "dependencies": {
     "@inquirer/prompts": "^5.3.6",
     "@types/chalk-animation": "^1.6.3",
