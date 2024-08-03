@@ -2,3 +2,4 @@ node_modules
 tmp
 bun.lockb
 .DS_Store
+todos.log
