@@ -1,6 +1,6 @@
 {
   "name": "rest-ezly",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Create REST APIs easily using Command Line Interface",
   "main": "index.js",
   "type": "module",
