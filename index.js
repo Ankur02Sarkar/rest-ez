@@ -38,15 +38,26 @@ async function cloneProject() {
   const git = simpleGit();
   let repoUrl;
 
-  if (frameworkType === "NodeJS" && database === "Offline File Storage") {
-    repoUrl = "https://github.com/Ankur02Sarkar/NodeJS-REST-API-Local.git";
-  } else if (
-    frameworkType === "FastAPI" &&
-    database === "Offline File Storage"
-  ) {
-    repoUrl = "https://github.com/Ankur02Sarkar/Python-REST-API-Local.git";
+  if (frameworkType === "NodeJS") {
+    if (database === "Offline File Storage") {
+      repoUrl = "https://github.com/Ankur02Sarkar/NodeJS-REST-API-Local.git";
+    } else if (database === "MongoDB") {
+      repoUrl = "https://github.com/Ankur02Sarkar/NodeJS-REST-API-MongoDB.git";
+    } else {
+      spinner.error({ text: `Unsupported database for NodeJS: ${database}` });
+      process.exit(1);
+    }
+  } else if (frameworkType === "FastAPI") {
+    if (database === "Offline File Storage") {
+      repoUrl = "https://github.com/Ankur02Sarkar/Python-REST-API-Local.git";
+    } else if (database === "MongoDB") {
+      repoUrl = "https://github.com/Ankur02Sarkar/Python-REST-API-MongoDB.git";
+    } else {
+      spinner.error({ text: `Unsupported database for FastAPI: ${database}` });
+      process.exit(1);
+    }
   } else {
-    spinner.error({ text: "Unsupported configuration" });
+    spinner.error({ text: `Unsupported framework: ${frameworkType}` });
     process.exit(1);
   }
 
